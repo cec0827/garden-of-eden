@@ -16,3 +16,6 @@ simulator/.sim/
 .playwright-mcp/
 garden-*.png
 timelapse/
+
+#system runtime
+services/
