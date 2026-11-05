@@ -1,0 +1,10 @@
+[Unit]
+Description=Garden of Eden nightly auto-update
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=chuck
+WorkingDirectory=/home/chuck/garden-of-eden
+ExecStart=/home/chuck/garden-of-eden/bin/autoupdate.sh

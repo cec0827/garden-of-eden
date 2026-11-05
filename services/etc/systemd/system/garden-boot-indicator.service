@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden of Eden boot heartbeat (pulse lights on startup)
+After=network.target pigpiod.service mqtt.service
+Wants=pigpiod.service
+
+[Service]
+Type=oneshot
+User=chuck
+ExecStart=/home/chuck/garden-of-eden/bin/boot-indicator.sh
+
+[Install]
+WantedBy=multi-user.target

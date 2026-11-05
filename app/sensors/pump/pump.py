@@ -1,10 +1,13 @@
 import argparse
+import os
+import sys
 import logging
 
 import pigpio
 from gpiozero import PWMLED
 from gpiozero.pins.pigpio import PiGPIOFactory
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 import config
 from app.lib.hardware import GPIOController
 

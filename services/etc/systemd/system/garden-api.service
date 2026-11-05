@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden of Eden REST API + Web UI
+After=network.target pigpiod.service
+Wants=pigpiod.service
+
+[Service]
+User=chuck
+WorkingDirectory=/home/chuck/garden-of-eden
+ExecStart=/home/chuck/garden-of-eden/venv/bin/waitress-serve --listen=0.0.0.0:5000 run:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
