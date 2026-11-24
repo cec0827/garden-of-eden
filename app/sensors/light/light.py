@@ -10,7 +10,7 @@ from gpiozero.pins.pigpio import PiGPIOFactory
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 import config
-
+from app.lib import state as state_lib
 
 class GPIOController:
     def __init__(self, pin, pin_factory=None):
@@ -50,7 +50,7 @@ class Light:
         if self.led.value > 0:
             logging.info("Light already on, skipping")
             return
-
+        state_lib.save_state(light_on=True)
         logging.info("Turning light on")
         self.led.value = 1
 
@@ -58,6 +58,7 @@ class Light:
         """
         Turn off lights.
         """
+        state_lib.save_state(light_on=False)
         logging.info("Turning light off")
         self.led.value = 0
 
@@ -68,6 +69,8 @@ class Light:
         Args:
         - brightness_percentage (int): A value between 0 (off) and 100 (max brightness).
         """
+        state_lib.save_state(light_on=brightness_percentage > 0, brightness=brightness_percentage)
+
         self.set_duty_cycle(brightness_percentage)
 
     def get_brightness(self):

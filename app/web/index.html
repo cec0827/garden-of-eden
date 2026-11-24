@@ -465,21 +465,21 @@
       for (const [path, [id, key]] of Object.entries(sensors)) {
         try { $(id).textContent = (await get(path))[key]; } catch { $(id).textContent = "n/a"; }
       }
-      try {
-        const w = await get("/distance"); const cm = w.distance;
-        $("s-water").textContent = cm;
-        $("s-water-gal").textContent = (w.gallons != null) ? w.gallons : "—";
-        // Map ~5cm (full) .. ~20cm (empty) to a 0..100% bar.
-        const pct = Math.max(0, Math.min(100, (1 - (cm - 5) / 15) * 100));
-        $("s-water-bar").style.width = pct + "%";
-        // Tank-low warning: larger distance = lower water (threshold from /system).
-        const badge = $("s-water-status");
-        if (waterLowCm != null && cm > waterLowCm) {
-          badge.textContent = "LOW"; badge.style.cssText = "background:#c0392b;color:#fff;border-color:#c0392b";
-        } else if (waterLowCm != null) {
-          badge.textContent = "OK"; badge.style.cssText = "";
-        } else { badge.textContent = ""; }
-      } catch { $("s-water").textContent = "n/a"; $("s-water-gal").textContent = "n/a"; $("s-water-status").textContent = ""; }
+     // try {
+     //   const w = await get("/distance"); const cm = w.distance;
+     //   $("s-water").textContent = cm;
+     //   $("s-water-gal").textContent = (w.gallons != null) ? w.gallons : "—";
+     //   // Map ~5cm (full) .. ~20cm (empty) to a 0..100% bar.
+     //   const pct = Math.max(0, Math.min(100, (1 - (cm - 5) / 15) * 100));
+     //   $("s-water-bar").style.width = pct + "%";
+     //  // Tank-low warning: larger distance = lower water (threshold from /system).
+     //   const badge = $("s-water-status");
+     //   if (waterLowCm != null && cm > waterLowCm) {
+     //     badge.textContent = "LOW"; badge.style.cssText = "background:#c0392b;color:#fff;border-color:#c0392b";
+     //   } else if (waterLowCm != null) {
+     //     badge.textContent = "OK"; badge.style.cssText = "";
+     //   } else { badge.textContent = ""; }
+     // } catch { $("s-water").textContent = "n/a"; $("s-water-gal").textContent = "n/a"; $("s-water-status").textContent = ""; }
       try {
         const p = await get("/pump/stats");
         if (p.BusVoltage != null) { $("p-volt").textContent = p.BusVoltage; $("p-curr").textContent = p.BusCurrent; $("p-pow").textContent = p.Power; $("p-shunt").textContent = p.ShuntVoltage ?? "—"; }

@@ -30,7 +30,7 @@ check_sensor = check_sensor_guard(sensor=light_control, sensor_name="Light")
 @check_sensor
 def turn_on():
     light_control.on()
-    state_lib.save_state(light_on=True)
+    """state_lib.save_state(light_on=True)"""
     return jsonify(message="Light turned on!"), 200
 
 
@@ -38,7 +38,7 @@ def turn_on():
 @check_sensor
 def turn_off():
     light_control.off()
-    state_lib.save_state(light_on=False)
+    """state_lib.save_state(light_on=False)"""
     return jsonify(message="Light turned off!"), 200
 
 
@@ -48,7 +48,8 @@ def set_brightness():
     data = request.get_json(silent=True) or {}
     brightness_value = parse_level(data, default=config.DEFAULT_BRIGHTNESS)
     light_control.set_brightness(brightness_value)
-    state_lib.save_state(light_on=brightness_value > 0, brightness=brightness_value)
+    """state_lib.save_state(light_on=brightness_value > 0, brightness=brightness_value)"""
+    
     return jsonify(message=f"Light adjusted to {brightness_value}%"), 200
 
 
